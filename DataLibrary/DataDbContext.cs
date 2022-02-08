@@ -12,6 +12,13 @@ namespace DataLibrary
         //Example: Categories:
         public DbSet<Category> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
+        
+        public DbSet<Food> Foods { get; set; } 
+        public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<FoodGroup> FoodGroups { get; set; }    
+        public DbSet<RecipeItem> ReceipeItems { get; set; }
+        public DbSet <StockItem> StockItems { get; set; }
+
 
         public DataDbContext() : base()
         { 
@@ -73,6 +80,50 @@ namespace DataLibrary
                             new Item() { Id = 13, CategoryId = 3, Name = "Suburbia" }
                             );
             });
+            modelBuilder.Entity<FoodGroup>(x =>
+            {
+                x.HasData(new FoodGroup() { Id = 1, Group = "Protein" },
+                          new FoodGroup() { Id = 2, Group = "Produce" },
+                          new FoodGroup() { Id = 3, Group = "Dry Goods" },
+                          new FoodGroup() { Id = 4, Group = "Liquids" }
+                          );
+            });
+            modelBuilder.Entity<Food>(x =>
+            {
+                x.HasData(new Food() { Id = 1, Name = "Chicken", FoodGroupId = 1 },
+                          new Food() { Id = 2, Name = "Spinach", FoodGroupId = 2 },
+                          new Food() { Id = 3, Name = "Milk", FoodGroupId = 4 },
+                          new Food() { Id = 4, Name = "Spaghetti", FoodGroupId = 3 },
+                          new Food() { Id = 5, Name = "Peanut Butter", FoodGroupId = 3},
+                          new Food() { Id = 6, Name = "Raspberry Jelly", FoodGroupId = 3}                                                               
+
+
+                );
+            });
+            modelBuilder.Entity<Recipe>(x =>
+            {
+                x.HasData(new Recipe() { Id = 1, Dish = "Chicken Alfredo", Instructions = "Put some chicken into some fettucine alfredo" },
+                          new Recipe() { Id = 2, Dish = "Peanut Butter and Jelly", Instructions = "Spread peanut butter on bread, spread jelly on other piece of bread, sslap on piece of bread against other piece of bread with peanut butter and jelly facing inward" }
+
+                );
+            });
+            modelBuilder.Entity<RecipeItem>(x =>
+            {
+                x.HasData(new RecipeItem() { Id = 1, RecipeId = 1, FoodId = 1, Amount = "4 boneless skinless thighs" },
+                          new RecipeItem() { Id = 2, RecipeId = 1, FoodId = 3, Amount = "8oz" },
+                          new RecipeItem() { Id = 3, RecipeId = 2, FoodId = 5, Amount = "One handful"},
+                          new RecipeItem() { Id = 4, RecipeId = 2, FoodId = 6, Amount = "One Tablespoon"}    
+                    );
+            }
+            );
+            modelBuilder.Entity<StockItem> (x =>
+            {
+                x.HasData(new StockItem() { Id = 1, Amount = "4 boneless skinless thighs", Count = 4, FoodId = 1, },
+                          new StockItem() { Id = 2, Amount = "One Gallon", Count = 1, FoodId = 3 },
+                          new StockItem() { Id = 3, Amount = "16oz", Count = 16, FoodId = 4 }
+                    );
+            });
+            
 
         }
     }

@@ -14,6 +14,9 @@ namespace MyDataManagerWinForms
         private IList<Category> Categories = new List<Category>();
         private IList<Item> Items = new List<Item>();
 
+        private IList<FoodGroup> FoodGroups = new List<FoodGroup>();
+        private IList<Food> Foods = new List<Food>();
+
         public MainForm()
         {
             InitializeComponent();
@@ -33,25 +36,36 @@ namespace MyDataManagerWinForms
             //load categories
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                Categories = db.Categories.OrderBy(x => x.Name).ToList();
-                Items = db.Items.ToList();
-                cboCategories.DataSource = Categories;
+                FoodGroups = db.FoodGroups.OrderBy(x => x.Group).ToList();
+                //Items = db.Items.ToList();
+                Foods = db.Foods.OrderBy(x => x.Name).ToList();
+                cboCategories.DataSource = FoodGroups;
+                
             }
         }
 
         private void cboCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
             var cboBox = sender as ComboBox;
-            var selItem = cboBox.SelectedItem as Category;
+            var selItem = cboBox.SelectedItem as FoodGroup;
 
             LoadGrid(selItem);
         }
 
-        private void LoadGrid(Category selectedItem)
+        private void LoadGrid(FoodGroup selectedItem)
         {
-            Debug.WriteLine($"Selected Item {selectedItem.Id}| {selectedItem.Name}");
-            var curData = Items.Where(x => x.CategoryId == selectedItem.Id).OrderBy(x => x.Name).ToList();
+            //Debug.WriteLine($"Selected Item {selectedItem.Id}| {selectedItem.Name}");
+            var curData =  Foods.Where(x => x.FoodGroupId == selectedItem.Id).ToList();
             dgItems.DataSource = curData;
         }
+
+       
+
+        private void dgItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        
     }
 }

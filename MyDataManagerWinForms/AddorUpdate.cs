@@ -11,9 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyDataManagerWinForms
-{
+{    
     public partial class AddorUpdate : Form
     {
+        public event RespondToMessageEvent _respondToMessageEvent;
+
         public AddorUpdate()
         {
             InitializeComponent();
@@ -46,6 +48,8 @@ namespace MyDataManagerWinForms
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
+            string msg = string.Empty;
+
             if (string.IsNullOrEmpty(this.txtfoodName.Text))
             {
                 MessageBox.Show("Please enter a food");
@@ -53,21 +57,22 @@ namespace MyDataManagerWinForms
             }
             using (var db = new DataDbContext(MainForm._optionsBuilder.Options))
             {
-                string msg = string.Empty;
+                
                 var selection = addComboBox.SelectedIndex;
 
                 _food.Name = txtfoodName.Text;
                 _food.FoodGroupId = (int)addComboBox.SelectedItem;
                 db.Foods.Add(_food);
                 db.SaveChanges();
-            }
+                msg = $"{_food.Name} added";
 
+                if (_respondToMessageEvent != null)
+                {
+                    _respondToMessageEvent.Invoke(msg);
+                }
+            }            
 
-            //_person.FirstName = txtFirstName.Text;
-            //_person.LastName = txtLastName.Text ?? string.Empty;
-            //db.People.Add(_person);
-            //db.SaveChanges();
-            //msg = $"{_person.FirstName} {_person.LastName} person added";
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

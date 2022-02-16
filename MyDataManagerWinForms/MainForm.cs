@@ -6,6 +6,8 @@ using System.Diagnostics;
 
 namespace MyDataManagerWinForms
 {
+    public delegate void RespondToMessageEvent(string message);
+
     public partial class MainForm : Form
     {
         private static IConfigurationRoot _configuration;
@@ -24,6 +26,27 @@ namespace MyDataManagerWinForms
             InitializeComponent();
         }
 
+        private void RespondToMessage(string m)
+        {
+            MessageBox.Show(m);
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            //load categories
+            using (var db = new DataDbContext(_optionsBuilder.Options))
+            {
+                FoodGroups = db.FoodGroups.OrderBy(x => x.Group).ToList();
+                Foods = db.Foods.OrderBy(x => x.Name).ToList();
+                Recipes = db.Recipes.ToList();
+                ReceipeItems = db.ReceipeItems.ToList();
+
+                cboCategories.DataSource = FoodGroups;
+                checkedListBox1.DataSource = Foods;
+            }
+        }
+
         static void BuildOptions()
         {
             _configuration = ConfigurationBuilderSingleton.ConfigurationRoot;
@@ -34,20 +57,7 @@ namespace MyDataManagerWinForms
         private void MainForm_Load(object sender, EventArgs e)
         {
             BuildOptions();
-
-            //load categories
-            using (var db = new DataDbContext(_optionsBuilder.Options))
-            {
-                FoodGroups = db.FoodGroups.OrderBy(x => x.Group).ToList();
-                //Items = db.Items.ToList();
-                Foods = db.Foods.OrderBy(x => x.Name).ToList();
-                Recipes = db.Recipes.ToList();
-                ReceipeItems = db.ReceipeItems.ToList();
-
-                cboCategories.DataSource = FoodGroups;
-                checkedListBox1.DataSource = Foods;
-
-            }
+            Refresh();            
         }
 
         private void cboCategories_SelectedIndexChanged(object sender, EventArgs e)
@@ -119,6 +129,7 @@ namespace MyDataManagerWinForms
         {
             //var moreFood = new AddFood();
             var moreFood = new AddorUpdate();
+            moreFood._respondToMessageEvent += new RespondToMessageEvent(RespondToMessage);
             moreFood.ShowDialog();
         }
     }

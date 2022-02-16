@@ -114,5 +114,10 @@ namespace MyDataManagerWinForms
 
             LoadGrid2(selItem);
         }
+
+        private void btnAddFood_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

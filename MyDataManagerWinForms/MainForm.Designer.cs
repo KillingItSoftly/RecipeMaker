@@ -31,6 +31,7 @@
             this.cboCategories = new System.Windows.Forms.ComboBox();
             this.dgItems = new System.Windows.Forms.DataGridView();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.btnAddFood = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgItems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,11 +66,22 @@
             this.checkedListBox1.TabIndex = 2;
             this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
+            // btnAddFood
+            // 
+            this.btnAddFood.Location = new System.Drawing.Point(357, 525);
+            this.btnAddFood.Name = "btnAddFood";
+            this.btnAddFood.Size = new System.Drawing.Size(94, 29);
+            this.btnAddFood.TabIndex = 3;
+            this.btnAddFood.Text = "Add Food";
+            this.btnAddFood.UseVisualStyleBackColor = true;
+            this.btnAddFood.Click += new System.EventHandler(this.btnAddFood_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(914, 600);
+            this.ClientSize = new System.Drawing.Size(839, 600);
+            this.Controls.Add(this.btnAddFood);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.dgItems);
             this.Controls.Add(this.cboCategories);
@@ -87,5 +99,6 @@
         private ComboBox cboCategories;
         private DataGridView dgItems;
         private CheckedListBox checkedListBox1;
+        private Button btnAddFood;
     }
 }

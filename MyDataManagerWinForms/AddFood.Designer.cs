@@ -31,21 +31,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnSaveFood = new System.Windows.Forms.Button();
             this.btnCancelAdd = new System.Windows.Forms.Button();
-            this.listBoxFoodSelection = new System.Windows.Forms.ListBox();
+            this.txtAddFood = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(119, 9);
+            this.label1.Location = new System.Drawing.Point(116, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 20);
+            this.label1.Size = new System.Drawing.Size(84, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Select Food:";
+            this.label1.Text = "Enter Food:";
             // 
             // btnSaveFood
             // 
-            this.btnSaveFood.Location = new System.Drawing.Point(131, 215);
+            this.btnSaveFood.Location = new System.Drawing.Point(106, 93);
             this.btnSaveFood.Name = "btnSaveFood";
             this.btnSaveFood.Size = new System.Drawing.Size(94, 29);
             this.btnSaveFood.TabIndex = 2;
@@ -55,30 +55,27 @@
             // 
             // btnCancelAdd
             // 
-            this.btnCancelAdd.Location = new System.Drawing.Point(131, 295);
+            this.btnCancelAdd.Location = new System.Drawing.Point(106, 128);
             this.btnCancelAdd.Name = "btnCancelAdd";
             this.btnCancelAdd.Size = new System.Drawing.Size(94, 29);
             this.btnCancelAdd.TabIndex = 3;
             this.btnCancelAdd.Text = "Cancel";
             this.btnCancelAdd.UseVisualStyleBackColor = true;
             // 
-            // listBoxFoodSelection
+            // txtAddFood
             // 
-            this.listBoxFoodSelection.BackColor = System.Drawing.Color.SpringGreen;
-            this.listBoxFoodSelection.FormattingEnabled = true;
-            this.listBoxFoodSelection.ItemHeight = 20;
-            this.listBoxFoodSelection.Location = new System.Drawing.Point(96, 60);
-            this.listBoxFoodSelection.Name = "listBoxFoodSelection";
-            this.listBoxFoodSelection.Size = new System.Drawing.Size(150, 104);
-            this.listBoxFoodSelection.TabIndex = 4;
-            this.listBoxFoodSelection.SelectedIndexChanged += new System.EventHandler(this.listBoxFoodSelection_SelectedIndexChanged);
+            this.txtAddFood.Location = new System.Drawing.Point(96, 60);
+            this.txtAddFood.Name = "txtAddFood";
+            this.txtAddFood.Size = new System.Drawing.Size(125, 27);
+            this.txtAddFood.TabIndex = 7;
+            this.txtAddFood.TextChanged += new System.EventHandler(this.txtAddFood_TextChanged);
             // 
             // AddFood
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(607, 391);
-            this.Controls.Add(this.listBoxFoodSelection);
+            this.ClientSize = new System.Drawing.Size(325, 255);
+            this.Controls.Add(this.txtAddFood);
             this.Controls.Add(this.btnCancelAdd);
             this.Controls.Add(this.btnSaveFood);
             this.Controls.Add(this.label1);
@@ -93,6 +90,6 @@
         private Label label1;
         private Button btnSaveFood;
         private Button btnCancelAdd;
-        private ListBox listBoxFoodSelection;
+        private TextBox txtAddFood;
     }
 }

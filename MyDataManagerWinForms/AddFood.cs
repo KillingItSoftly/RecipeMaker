@@ -1,4 +1,5 @@
 ﻿using DataLibrary;
+using MyDataModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,15 @@ namespace MyDataManagerWinForms
         public AddFood()
         {
             InitializeComponent();
+            //using (var db = new DataDbContext(MainForm._optionsBuilder.Options))
+            //{
+
+            //    //Items = db.Items.ToList();
+            //    var foods = db.Foods.OrderBy(x => x.Name).ToList();
+
+            //    listBoxFoodSelection.DataSource = foods;
+
+            //}
         }
 
         private void txtFoodName_TextChanged(object sender, EventArgs e)
@@ -33,17 +43,28 @@ namespace MyDataManagerWinForms
             }*/
         }
 
-        private void listBoxFoodSelection_SelectedIndexChanged(object sender, EventArgs e)
+        private void txtAddFood_TextChanged(object sender, EventArgs e)
         {
-            using (var db = new DataDbContext(MainForm._optionsBuilder.Options))
-            {
-               
-                //Items = db.Items.ToList();
-                var foods = db.Foods.OrderBy(x => x.Name).ToList();
-
-                listBoxFoodSelection.DataSource = foods;
-
-            }
+            
         }
+
+        //private void list2BoxFoodSelection_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    //var checkBox = sender as CheckedListBox;
+        //    //var selItem = checkBox.SelectedItem as Food;
+
+
+        //    //ListBox listBox1 = new ListBox();
+        //    //listBox1.Location = new System.Drawing.Point(12, 12);
+        //    //listBox1.Name = "Add to Fridge";
+        //    //listBox1.Size = new System.Drawing.Size(245, 200);
+        //    //listBox1.BackColor = System.Drawing.Color.Orange;
+        //    //listBox1.ForeColor = System.Drawing.Color.Black;
+        //    //Controls.Add(listBox1);
+
+        //    //listBox1(selItem);
+        //}
+
+
     }
 }

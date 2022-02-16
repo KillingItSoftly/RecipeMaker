@@ -55,15 +55,15 @@ namespace MyDataManagerWinForms
             var cboBox = sender as ComboBox;
             var selItem = cboBox.SelectedItem as FoodGroup;
 
-            //LoadGrid(selItem);
+            LoadGrid(selItem);
         }
 
-        //private void LoadGrid(FoodGroup selectedItem)
-        //{
-        //    //Debug.WriteLine($"Selected Item {selectedItem.Id}| {selectedItem.Name}");
-        //    var curData =  Foods.Where(x => x.FoodGroupId == selectedItem.Id).ToList();
-        //    dgItems.DataSource = curData;
-        //}
+        private void LoadGrid(FoodGroup selectedItem)
+        {
+            //Debug.WriteLine($"Selected Item {selectedItem.Id}| {selectedItem.Name}");
+            var curData =  Foods.Where(x => x.FoodGroupId == selectedItem.Id).ToList();
+            dgItems.DataSource = curData;
+        }
 
 
 
@@ -112,12 +112,13 @@ namespace MyDataManagerWinForms
             var checkBox = sender as CheckedListBox;
             var selItem = checkBox.SelectedItem as Food;
 
-            LoadGrid2(selItem);
+            //LoadGrid2(selItem);
         }
 
         private void btnAddFood_Click(object sender, EventArgs e)
         {
-            var moreFood = new AddFood();
+            //var moreFood = new AddFood();
+            var moreFood = new AddorUpdate();
             moreFood.ShowDialog();
         }
     }

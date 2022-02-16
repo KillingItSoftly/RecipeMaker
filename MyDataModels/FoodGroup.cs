@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace MyDataModels
 {
+    public enum FoodGroupName
+    {
+        Protein = 1,
+        Produce = 2,
+        [Display(Name = "Dry Goods")]
+        DryGoods = 3,
+        Liquids = 4
+    }
     public class FoodGroup
     {
 

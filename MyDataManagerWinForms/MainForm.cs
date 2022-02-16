@@ -57,6 +57,7 @@ namespace MyDataManagerWinForms
         private void MainForm_Load(object sender, EventArgs e)
         {
             BuildOptions();
+            checkedListBox1.Hide();
             Refresh();            
         }
 
@@ -131,6 +132,39 @@ namespace MyDataManagerWinForms
             var moreFood = new AddorUpdate();
             moreFood._respondToMessageEvent += new RespondToMessageEvent(RespondToMessage);
             moreFood.ShowDialog();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgItems.SelectedRows.Count > 0)
+            {
+                var foodInfo = dgItems.SelectedRows[0].Cells;
+                var foodName = foodInfo[1].Value;
+                DialogResult userChoice = MessageBox.Show($"Do you really want to delete {foodName}?","Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (userChoice == DialogResult.Yes)
+                {
+                    DialogResult userChoice2 = MessageBox.Show("Are you sure??????", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if(userChoice2 == DialogResult.Yes)
+                    {
+                        var deleteID = (int)foodInfo[0].Value;
+                        using (var db = new DataDbContext(_optionsBuilder.Options))
+                        {
+
+                            var food = db.Foods.SingleOrDefault(x => x.Id == deleteID);
+                            if (food != null)
+                            {
+                                db.Foods.Remove(food);
+                                db.SaveChanges();
+                                Refresh();
+                            }
+                        }
+                        MessageBox.Show($"You deleted {foodName}, why would you do this?", "Do you feel good about yourself?", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        //System.Console.Beep();  
+                    }
+                    
+                }           
+
+            }
         }
     }
 }

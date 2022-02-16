@@ -28,15 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.cboCategories = new System.Windows.Forms.ComboBox();
             this.dgItems = new System.Windows.Forms.DataGridView();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.btnAddFood = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgItems)).BeginInit();
             this.SuspendLayout();
             // 
             // cboCategories
             // 
+            this.cboCategories.BackColor = System.Drawing.Color.White;
             this.cboCategories.FormattingEnabled = true;
             this.cboCategories.Location = new System.Drawing.Point(81, 39);
             this.cboCategories.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -47,6 +50,8 @@
             // 
             // dgItems
             // 
+            this.dgItems.BackgroundColor = System.Drawing.Color.Goldenrod;
+            this.dgItems.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgItems.Location = new System.Drawing.Point(81, 111);
             this.dgItems.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -68,19 +73,34 @@
             // 
             // btnAddFood
             // 
-            this.btnAddFood.Location = new System.Drawing.Point(357, 525);
+            this.btnAddFood.BackColor = System.Drawing.Color.Lime;
+            this.btnAddFood.Location = new System.Drawing.Point(451, 478);
             this.btnAddFood.Name = "btnAddFood";
-            this.btnAddFood.Size = new System.Drawing.Size(94, 29);
+            this.btnAddFood.Size = new System.Drawing.Size(142, 71);
             this.btnAddFood.TabIndex = 3;
             this.btnAddFood.Text = "Add Food";
-            this.btnAddFood.UseVisualStyleBackColor = true;
+            this.btnAddFood.UseVisualStyleBackColor = false;
             this.btnAddFood.Click += new System.EventHandler(this.btnAddFood_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.HotPink;
+            this.btnDelete.Location = new System.Drawing.Point(599, 478);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(139, 70);
+            this.btnDelete.TabIndex = 4;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 600);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(802, 560);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAddFood);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.dgItems);
@@ -100,5 +120,6 @@
         private DataGridView dgItems;
         private CheckedListBox checkedListBox1;
         private Button btnAddFood;
+        private Button btnDelete;
     }
 }

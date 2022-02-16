@@ -9,13 +9,13 @@ namespace MyDataManagerWinForms
     public partial class MainForm : Form
     {
         private static IConfigurationRoot _configuration;
-        private static DbContextOptionsBuilder<DataDbContext> _optionsBuilder;
+        public static DbContextOptionsBuilder<DataDbContext> _optionsBuilder;
 
         private IList<Category> Categories = new List<Category>();
         private IList<Item> Items = new List<Item>();
 
         private IList<FoodGroup> FoodGroups = new List<FoodGroup>();
-        private IList<Food> Foods = new List<Food>();
+        public IList<Food> Foods = new List<Food>();
         private IList<Recipe> Recipes = new List<Recipe>();
         private IList<RecipeItem> ReceipeItems = new List<RecipeItem>();
 
@@ -117,7 +117,8 @@ namespace MyDataManagerWinForms
 
         private void btnAddFood_Click(object sender, EventArgs e)
         {
-
+            var moreFood = new AddFood();
+            moreFood.ShowDialog();
         }
     }
 }

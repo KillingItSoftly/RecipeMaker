@@ -78,14 +78,21 @@ namespace MyDataManagerWinForms
             {
                 
                 var theFood = db.Foods.Include(x => x.RecipeItems).ThenInclude(y => y.Recipe)
+                                 .Select(x => new
+                                 {
+                                     Id = x.Id,
+                                     Name = x.Name,
+                                     Recipes = x.RecipeItems.Select(y => y.Recipe)
+                                 } )
                                  .SingleOrDefault(x => x.Id == selectedItem.Id);
                 var recipes = new List<Recipe>();
 
-                foreach(var ri in theFood.RecipeItems)
+                /*foreach(var ri in theFood.RecipeItems)
                 {
                     recipes.Add(ri.Recipe);
-                }
-                dgItems.DataSource = recipes;
+                }*/
+                dgItems.DataBindings.Clear();
+                dgItems.DataSource = theFood.Recipes;
             }
             
             

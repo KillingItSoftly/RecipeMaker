@@ -154,6 +154,11 @@ namespace DataLibrary.Migrations
                         {
                             Id = 4,
                             Group = "Liquids"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Group = "Unassigned"
                         });
                 });
 

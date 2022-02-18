@@ -21,5 +21,10 @@ namespace MyDataModels
         public virtual Food? Food { get; set; }
 
         public virtual Recipe? Recipe { get; set; }
+
+        public override string ToString()
+        {
+            return RecipeId.ToString();
+        }
     }
 }

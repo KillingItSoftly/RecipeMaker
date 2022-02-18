@@ -21,5 +21,10 @@ namespace MyDataModels
         public virtual List<RecipeItem> RecipeItems { get; set; } = new List<RecipeItem>();
 
         public virtual List<StockItem> StockItems { get; set; } = new List<StockItem>();
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

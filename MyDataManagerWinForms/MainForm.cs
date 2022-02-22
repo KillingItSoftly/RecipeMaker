@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MyDataModels;
 using System.Diagnostics;
+using MyDataManagerDataOperations;
 
 namespace MyDataManagerWinForms
 {
@@ -19,7 +20,8 @@ namespace MyDataManagerWinForms
         private IList<FoodGroup> FoodGroups = new List<FoodGroup>();
         public IList<Food> Foods = new List<Food>();
         private IList<Recipe> Recipes = new List<Recipe>();
-        private IList<RecipeItem> ReceipeItems = new List<RecipeItem>();
+        private IList<RecipeItem> RecipeItems = new List<RecipeItem>();
+        private IList<StockItem> StockItems = new List<StockItem>();
 
         public MainForm()
         {
@@ -35,30 +37,21 @@ namespace MyDataManagerWinForms
         public void Refresh()
         {
             //load categories
-            using (var db = new DataDbContext(_optionsBuilder.Options))
-            {
-                FoodGroups = db.FoodGroups.OrderBy(x => x.Group).ToList();
-                Foods = db.Foods.OrderBy(x => x.Name).ToList();
-                Recipes = db.Recipes.ToList();
-                ReceipeItems = db.ReceipeItems.ToList();
-
-                cboCategories.DataSource = FoodGroups;
-                checkedListBox1.DataSource = Foods;
-            }
-        }
-
-        static void BuildOptions()
-        {
-            _configuration = ConfigurationBuilderSingleton.ConfigurationRoot;
-            _optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
-            _optionsBuilder.UseSqlServer(_configuration.GetConnectionString("MyDataManagerData"));
+            
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            BuildOptions();
-            checkedListBox1.Hide();
-            Refresh();            
+           
+            var dataOperation = new DataOperations();
+
+            FoodGroups = dataOperation.GetFoodGroups();
+            Recipes = dataOperation.GetRecipes();
+            Foods = dataOperation.GetFoods();
+            StockItems = dataOperation.GetStockItems();
+            RecipeItems = dataOperation.GetRecipeItems();
+            cboCategories.DataSource = FoodGroups;
+
         }
 
         private void cboCategories_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,7 +65,7 @@ namespace MyDataManagerWinForms
         private void LoadGrid(FoodGroup selectedItem)
         {
             //Debug.WriteLine($"Selected Item {selectedItem.Id}| {selectedItem.Name}");
-            var curData =  Foods.Where(x => x.FoodGroupId == selectedItem.Id).ToList();
+            var curData = Foods.Where(x => x.FoodGroupId == selectedItem.Id).ToList();
             dgItems.DataSource = curData;
         }
 
@@ -83,28 +76,28 @@ namespace MyDataManagerWinForms
 
         }
 
-        private void LoadGrid2(Food selectedItem)
-        {
-            using (var db = new DataDbContext(_optionsBuilder.Options))
-            {
+        
+        
+            //using (var db = new DataDbContext(_optionsBuilder.Options))
+            //{
                 
-                var theFood = db.Foods.Include(x => x.RecipeItems).ThenInclude(y => y.Recipe)
-                                 .Select(x => new
-                                 {
-                                     Id = x.Id,
-                                     Name = x.Name,
-                                     Recipes = x.RecipeItems.Select(y => y.Recipe)
-                                 } )
-                                 .SingleOrDefault(x => x.Id == selectedItem.Id);
-                var recipes = new List<Recipe>();
+            //    var theFood = db.Foods.Include(x => x.RecipeItems).ThenInclude(y => y.Recipe)
+            //                     .Select(x => new
+            //                     {
+            //                         Id = x.Id,
+            //                         Name = x.Name,
+            //                         Recipes = x.RecipeItems.Select(y => y.Recipe)
+            //                     } )
+            //                     .SingleOrDefault(x => x.Id == selectedItem.Id);
+            //    var recipes = new List<Recipe>();
 
-                /*foreach(var ri in theFood.RecipeItems)
-                {
-                    recipes.Add(ri.Recipe);
-                }*/
-                dgItems.DataBindings.Clear();
-                dgItems.DataSource = theFood.Recipes;
-            }
+            //    /*foreach(var ri in theFood.RecipeItems)
+            //    {
+            //        recipes.Add(ri.Recipe);
+            //    }*/
+            //    dgItems.DataBindings.Clear();
+            //    dgItems.DataSource = theFood.Recipes;
+            
             
             
             //var firstData = ReceipeItems.Where(x => x.FoodId == selectedItem.Id && x.RecipeId == Recipes.Id).ToList();
@@ -116,15 +109,9 @@ namespace MyDataManagerWinForms
             //var secondData = Recipes.Where(x => x.Id == firstData.RecipeId).ToList();
             
             //dgItems.DataSource = secondData;
-        }
+        
       
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var checkBox = sender as CheckedListBox;
-            var selItem = checkBox.SelectedItem as Food;
-
-            //LoadGrid2(selItem);
-        }
+      
 
         private void btnAddFood_Click(object sender, EventArgs e)
         {
@@ -147,6 +134,9 @@ namespace MyDataManagerWinForms
                     if(userChoice2 == DialogResult.Yes)
                     {
                         var deleteID = (int)foodInfo[0].Value;
+                        
+                        //var dataOperation = new DataOperations();
+                        //Foods = dataOperation.GetFoods();
                         using (var db = new DataDbContext(_optionsBuilder.Options))
                         {
 

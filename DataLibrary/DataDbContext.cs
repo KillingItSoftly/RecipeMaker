@@ -85,7 +85,9 @@ namespace DataLibrary
                 x.HasData(new FoodGroup() { Id = 1, Group = "Protein" },
                           new FoodGroup() { Id = 2, Group = "Produce" },
                           new FoodGroup() { Id = 3, Group = "Dry Goods" },
-                          new FoodGroup() { Id = 4, Group = "Liquids" }
+                          new FoodGroup() { Id = 4, Group = "Liquids" },
+                          new FoodGroup() { Id = 5, Group = "Unassigned" }
+
                           );
             });
             modelBuilder.Entity<Food>(x =>

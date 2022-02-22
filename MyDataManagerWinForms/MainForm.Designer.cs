@@ -34,6 +34,7 @@
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.btnAddFood = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.btnLoadData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgItems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,13 +101,28 @@
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // btnLoadData
+            // 
+            this.btnLoadData.Location = new System.Drawing.Point(319, 478);
+            this.btnLoadData.Name = "btnLoadData";
+            this.btnLoadData.Size = new System.Drawing.Size(126, 70);
+            this.btnLoadData.TabIndex = 5;
+            this.btnLoadData.Text = "LoadData";
+            this.btnLoadData.UseVisualStyleBackColor = true;
+            this.btnLoadData.Click += new System.EventHandler(this.btnLoadData_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+
             this.ClientSize = new System.Drawing.Size(702, 420);
+
+            
+            this.Controls.Add(this.btnLoadData);
+
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAddFood);
             this.Controls.Add(this.checkedListBox1);
@@ -127,5 +143,6 @@
         private CheckedListBox checkedListBox1;
         private Button btnAddFood;
         private Button btnDelete;
+        private Button btnLoadData;
     }
 }

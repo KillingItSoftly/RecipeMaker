@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyDataManagerDataOperations;
 
 namespace MyDataManagerWinForms
 {    
@@ -57,22 +58,17 @@ namespace MyDataManagerWinForms
                 MessageBox.Show("Please enter a food");
                 return;
             }
-            using (var db = new DataDbContext(MainForm._optionsBuilder.Options))
+            var selection = addComboBox.SelectedIndex;
+            _food.Name = txtfoodName.Text;
+            _food.FoodGroupId = (int)addComboBox.SelectedItem;
+            var addOperation = new DataOperations();
+            addOperation.AddFood(_food);
+            msg = $"{_food.Name} added";
+
+            if (_respondToMessageEvent != null)
             {
-                
-                var selection = addComboBox.SelectedIndex;
-
-                _food.Name = txtfoodName.Text;
-                _food.FoodGroupId = (int)addComboBox.SelectedItem;
-                db.Foods.Add(_food);
-                db.SaveChanges();
-                msg = $"{_food.Name} added";
-
-                if (_respondToMessageEvent != null)
-                {
-                    _respondToMessageEvent.Invoke(msg);
-                }
-            }            
+                _respondToMessageEvent.Invoke(msg);
+            }
 
             this.Close();
         }

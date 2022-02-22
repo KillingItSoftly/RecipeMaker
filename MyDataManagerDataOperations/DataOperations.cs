@@ -5,6 +5,7 @@ using MyDataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyDataManagerDataOperations
 {
@@ -75,7 +76,70 @@ namespace MyDataManagerDataOperations
             }
         }
 
+        public void DeleteFood(int deleteID)
+        {
+            using (var db = new DataDbContext(_optionsBuilder.Options))
+            {
 
+                var food = db.Foods.SingleOrDefault(x => x.Id == deleteID);
+                if (food != null)
+                {
+                    db.Foods.Remove(food);
+                    db.SaveChanges();
+                    
+                }
+            }
+        }
+
+        public void AddFood(Food food)
+        {
+            using (var db = new DataDbContext(_optionsBuilder.Options))
+            {
+
+                
+                db.Foods.Add(food);
+                db.SaveChanges();
+                
+            }
+        }
+        public void LoadData()
+        {
+            var appId = _configuration["edamam:app_id"].ToString();
+            var appKey = _configuration["edamam:app_key"].ToString();
+            var di = new DataImporter();
+            var a = "abcdefghijklmnopqrstuvwxyz";
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                var nextChar = a.Substring(i, 1);
+                Task.Run(async () => await di.GetData(appKey, appId, nextChar));
+
+            }
+        }
+
+        //using (var db = new DataDbContext(_optionsBuilder.Options))
+        //{
+
+        //    var theFood = db.Foods.Include(x => x.RecipeItems).ThenInclude(y => y.Recipe)
+        //                     .Select(x => new
+        //                     {
+        //                         Id = x.Id,
+        //                         Name = x.Name,
+        //                         Recipes = x.RecipeItems.Select(y => y.Recipe)
+        //                     } )
+        //                     .SingleOrDefault(x => x.Id == selectedItem.Id);
+        //    var recipes = new List<Recipe>();
+
+        //    /*foreach(var ri in theFood.RecipeItems)
+        //    {
+        //        recipes.Add(ri.Recipe);
+        //    }*/
+        //    dgItems.DataBindings.Clear();
+        //    dgItems.DataSource = theFood.Recipes;
+
+
+
+        //var firstData = ReceipeItems.Where(x => x.FoodId == selectedItem.Id && x.RecipeId == Recipes.Id).ToList();
 
     }
 }

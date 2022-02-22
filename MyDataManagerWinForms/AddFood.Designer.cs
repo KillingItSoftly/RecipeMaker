@@ -45,13 +45,14 @@
             // 
             // btnSaveFood
             // 
+            this.btnSaveFood.BackColor = System.Drawing.Color.MediumAquamarine;
             this.btnSaveFood.Location = new System.Drawing.Point(93, 70);
             this.btnSaveFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSaveFood.Name = "btnSaveFood";
             this.btnSaveFood.Size = new System.Drawing.Size(82, 22);
             this.btnSaveFood.TabIndex = 2;
             this.btnSaveFood.Text = "Save";
-            this.btnSaveFood.UseVisualStyleBackColor = true;
+            this.btnSaveFood.UseVisualStyleBackColor = false;
             this.btnSaveFood.Click += new System.EventHandler(this.btnSaveFood_Click);
             // 
             // btnCancelAdd

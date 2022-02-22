@@ -50,13 +50,18 @@
             // 
             // dgItems
             // 
-            this.dgItems.BackgroundColor = System.Drawing.Color.PapayaWhip;
+            this.dgItems.AllowUserToResizeColumns = false;
+            this.dgItems.AllowUserToResizeRows = false;
+            this.dgItems.BackgroundColor = System.Drawing.Color.Bisque;
             this.dgItems.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgItems.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dgItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgItems.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgItems.Location = new System.Drawing.Point(71, 83);
             this.dgItems.Name = "dgItems";
             this.dgItems.RowHeadersWidth = 51;
             this.dgItems.RowTemplate.Height = 25;
+            this.dgItems.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgItems.Size = new System.Drawing.Size(575, 274);
             this.dgItems.TabIndex = 1;
             this.dgItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgItems_CellContentClick);
@@ -79,7 +84,7 @@
             this.btnAddFood.Name = "btnAddFood";
             this.btnAddFood.Size = new System.Drawing.Size(124, 53);
             this.btnAddFood.TabIndex = 3;
-            this.btnAddFood.Text = "Add Food";
+            this.btnAddFood.Text = "Add Item";
             this.btnAddFood.UseVisualStyleBackColor = false;
             this.btnAddFood.Click += new System.EventHandler(this.btnAddFood_Click);
             // 
@@ -91,7 +96,7 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(122, 52);
             this.btnDelete.TabIndex = 4;
-            this.btnDelete.Text = "Delete";
+            this.btnDelete.Text = "Delete Row";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 

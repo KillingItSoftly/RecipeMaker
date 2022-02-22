@@ -39,6 +39,8 @@ namespace MyDataManagerWinForms
         {
 
         }
+
+     
         private void addComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var checkBox = sender as ComboBox;
@@ -80,6 +82,28 @@ namespace MyDataManagerWinForms
             this.Close();
         }
 
-        
+        private void txtfoodName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+              
+
+               label1.Font = new Font("Arial", 20, FontStyle.Bold);
+               label1.Text = "Click 'Save' to add";
+
+                // (working on) When enter is pressed .SaveChanges instead of having ^^^^ as output text
+              
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+           
+        }
     }
 }

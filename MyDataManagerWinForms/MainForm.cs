@@ -166,5 +166,22 @@ namespace MyDataManagerWinForms
 
             }
         }
+
+        private void btnLoadData_Click(object sender, EventArgs e)
+        {
+            var appId = _configuration["edamam:app_id"].ToString();
+            var appKey = _configuration["edamam:app_key"].ToString();
+            var di = new DataImporter();
+            var a = "abcdefghijklmnopqrstuvwxyz";
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                var nextChar = a.Substring(i, 1);
+                Task.Run(async () => await di.GetData(appKey, appId, nextChar));
+
+            }
+
+
+        }
     }
 }

@@ -3,10 +3,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyDataManagerWinForms
+namespace MyDataManagerDataOperations
 {
     internal class DataImporter
     {
@@ -27,7 +28,7 @@ namespace MyDataManagerWinForms
 
                var data = JsonConvert.DeserializeObject<List<string>>(json);
 
-                using (var db = new DataLibrary.DataDbContext(MainForm._optionsBuilder.Options))
+                using (var db = new DataLibrary.DataDbContext(DataOperations._optionsBuilder.Options))
                 {
                    var currentFoods = db.Foods.Select(x => x.Name).ToList();
                     List<Food> ourFood = new List<Food>();
@@ -58,7 +59,7 @@ namespace MyDataManagerWinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                throw; //log this
             }
 
         }

@@ -15,7 +15,6 @@ namespace MyDataManagerWinForms
     public partial class AddFood : Form
     {
         
-
         public AddFood()
         {
             InitializeComponent();
@@ -66,7 +65,5 @@ namespace MyDataManagerWinForms
 
         //    //listBox1(selItem);
         //}
-
-
     }
 }

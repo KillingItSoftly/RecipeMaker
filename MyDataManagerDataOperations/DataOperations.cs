@@ -25,54 +25,43 @@ namespace MyDataManagerDataOperations
             BuildOptions();
         }
 
-        public List<Food> GetFoods()
+        public async Task<List<Food>> GetFoods()
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
-            {
-                
-                return db.Foods.OrderBy(x=> x.Name).ToList();
-                
-
+            { 
+                return db.Foods.OrderBy(x=> x.Name).ToList();        
             }
         }
-        public List<FoodGroup> GetFoodGroups()
+
+        public async Task<List<FoodGroup>> GetFoodGroups()
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-
                 return db.FoodGroups.ToList();
-
-
             }
         }
-        public List<Recipe> GetRecipes()
+
+        public async Task<List<Recipe>> GetRecipes()
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-
                 return db.Recipes.OrderBy(x => x.Dish).ToList();
-
-
             }
         }
-        public List<StockItem> GetStockItems()
+
+        public async Task<List<StockItem>> GetStockItems()
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-
                 return db.StockItems.ToList();
-
-
             }
         }
-        public List<RecipeItem> GetRecipeItems()
+
+        public async Task<List<RecipeItem>> GetRecipeItems()
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-
                 return db.ReceipeItems.ToList();
-
-
             }
         }
 
@@ -80,13 +69,11 @@ namespace MyDataManagerDataOperations
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-
                 var food = db.Foods.SingleOrDefault(x => x.Id == deleteID);
                 if (food != null)
                 {
                     db.Foods.Remove(food);
                     db.SaveChanges();
-                    
                 }
             }
         }
@@ -95,13 +82,11 @@ namespace MyDataManagerDataOperations
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-
-                
                 db.Foods.Add(food);
                 db.SaveChanges();
-                
             }
         }
+
         public void LoadData()
         {
             var appId = _configuration["edamam:app_id"].ToString();
@@ -113,7 +98,6 @@ namespace MyDataManagerDataOperations
             {
                 var nextChar = a.Substring(i, 1);
                 Task.Run(async () => await di.GetData(appKey, appId, nextChar));
-
             }
         }
 

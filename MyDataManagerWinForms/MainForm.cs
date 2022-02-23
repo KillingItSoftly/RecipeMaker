@@ -11,8 +11,6 @@ namespace MyDataManagerWinForms
 
     public partial class MainForm : Form
     {
-        
-
         private IList<FoodGroup> FoodGroups = new List<FoodGroup>();
         public IList<Food> Foods = new List<Food>();
         private IList<Recipe> Recipes = new List<Recipe>();
@@ -34,20 +32,17 @@ namespace MyDataManagerWinForms
         {
             var dataOperation = new DataOperations();
 
-            FoodGroups = dataOperation.GetFoodGroups();
-            Recipes = dataOperation.GetRecipes();
-            Foods = dataOperation.GetFoods();
-            StockItems = dataOperation.GetStockItems();
-            RecipeItems = dataOperation.GetRecipeItems();
+            FoodGroups = dataOperation.GetFoodGroups().Result;
+            Recipes = dataOperation.GetRecipes().Result;
+            Foods = dataOperation.GetFoods().Result;
+            StockItems = dataOperation.GetStockItems().Result;
+            RecipeItems = dataOperation.GetRecipeItems().Result;
             cboCategories.DataSource = FoodGroups;
-
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
             Refresh();
-
         }
 
         private void cboCategories_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,8 +60,6 @@ namespace MyDataManagerWinForms
             dgItems.DataSource = curData;
         }
 
-
-
         private void dgItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -74,7 +67,6 @@ namespace MyDataManagerWinForms
 
         private void btnAddFood_Click(object sender, EventArgs e)
         {
-            
             var moreFood = new AddorUpdate();
             moreFood._respondToMessageEvent += new RespondToMessageEvent(RespondToMessage);
             moreFood.ShowDialog();
@@ -87,9 +79,11 @@ namespace MyDataManagerWinForms
                 var foodInfo = dgItems.SelectedRows[0].Cells;
                 var foodName = foodInfo[1].Value;
                 DialogResult userChoice = MessageBox.Show($"Do you really want to delete {foodName}?","Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                
                 if (userChoice == DialogResult.Yes)
                 {
                     DialogResult userChoice2 = MessageBox.Show("Are you sure??????", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    
                     if(userChoice2 == DialogResult.Yes)
                     {
                         var deleteID = (int)foodInfo[0].Value;
@@ -102,18 +96,14 @@ namespace MyDataManagerWinForms
                         //System.Console.Beep();  
                         Refresh();
                     }
-                    
                 }           
-
             }
         }
 
         private void btnLoadData_Click(object sender, EventArgs e)
         {
-
             var loadData = new DataOperations();
             loadData.LoadData();
-
         }
     }
 }

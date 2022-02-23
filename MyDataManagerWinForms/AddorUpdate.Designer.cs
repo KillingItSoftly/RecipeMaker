@@ -78,7 +78,7 @@
             this.label1.Size = new System.Drawing.Size(69, 15);
             this.label1.TabIndex = 3;
             this.label1.Text = "Food Name";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // addComboBox
             // 
@@ -99,7 +99,7 @@
             this.label2.Size = new System.Drawing.Size(70, 15);
             this.label2.TabIndex = 5;
             this.label2.Text = "Food Group";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            //this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // AddorUpdate
             // 

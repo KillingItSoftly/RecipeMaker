@@ -24,7 +24,6 @@ namespace MyDataManagerWinForms
             addComboBox.DataSource = Enum.GetValues(typeof(FoodGroupName));
 
             //load categories
-
         }
         private Food _food; 
         public AddorUpdate(Food f)
@@ -32,23 +31,19 @@ namespace MyDataManagerWinForms
             InitializeComponent();
             _food = f;
             this.txtfoodName.Text = _food.Name;
-
         }
-         
 
         private void txtfoodName_TextChanged(object sender, EventArgs e)
         {
 
         }
-
      
         private void addComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var checkBox = sender as ComboBox;
             var selItem = checkBox.SelectedItem as FoodGroup;
-            
-                    
         }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             string msg = string.Empty;
@@ -58,6 +53,7 @@ namespace MyDataManagerWinForms
                 MessageBox.Show("Please enter a food");
                 return;
             }
+
             var selection = addComboBox.SelectedIndex;
             _food.Name = txtfoodName.Text;
             _food.FoodGroupId = (int)addComboBox.SelectedItem;
@@ -81,6 +77,15 @@ namespace MyDataManagerWinForms
         {
             if (e.KeyCode == Keys.Enter)
             {
+
+                Random rnd = new Random();
+                label1.ForeColor = Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
+
+                label1.Font = new Font("Arial", 20, FontStyle.Bold);
+                label1.Text = "Click 'Save' to add";
+
+                // (working on) When enter is pressed .SaveChanges instead of having ^^^^ as output text
+
                 string msg = string.Empty;
 
                 if (string.IsNullOrEmpty(this.txtfoodName.Text))
@@ -101,6 +106,7 @@ namespace MyDataManagerWinForms
                 }
 
                 this.Close();
+
             }
         }
     }

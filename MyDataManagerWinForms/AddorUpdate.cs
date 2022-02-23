@@ -78,12 +78,6 @@ namespace MyDataManagerWinForms
             if (e.KeyCode == Keys.Enter)
             {
 
-                Random rnd = new Random();
-                label1.ForeColor = Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
-
-                label1.Font = new Font("Arial", 20, FontStyle.Bold);
-                label1.Text = "Click 'Save' to add";
-
                 // (working on) When enter is pressed .SaveChanges instead of having ^^^^ as output text
 
                 string msg = string.Empty;

@@ -73,11 +73,11 @@ namespace MyDataManagerWinForms
         {
             this.Close();
         }
-
         private void txtfoodName_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
+
                 Random rnd = new Random();
                 label1.ForeColor = Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
 
@@ -85,17 +85,42 @@ namespace MyDataManagerWinForms
                 label1.Text = "Click 'Save' to add";
 
                 // (working on) When enter is pressed .SaveChanges instead of having ^^^^ as output text
+
+                string msg = string.Empty;
+
+                if (string.IsNullOrEmpty(this.txtfoodName.Text))
+                {
+                    MessageBox.Show("Please enter a food");
+                    return;
+                }
+                var selection = addComboBox.SelectedIndex;
+                _food.Name = txtfoodName.Text;
+                _food.FoodGroupId = (int)addComboBox.SelectedItem;
+                var addOperation = new DataOperations();
+                addOperation.AddFood(_food);
+                msg = $"{_food.Name} added";
+
+                if (_respondToMessageEvent != null)
+                {
+                    _respondToMessageEvent.Invoke(msg);
+                }
+
+                this.Close();
+
             }
         }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-           
-        }
     }
+
+        
+
+        //private void label2_Click(object sender, EventArgs e)
+        //{
+           
+        //}
+
+        //private void label1_Click(object sender, EventArgs e)
+        //{
+           
+        //}
+    
 }

@@ -65,9 +65,9 @@ namespace MyDataManagerDataOperations
             }
         }
 
-        public void DeleteFood(int deleteID)
+        public async Task DeleteFood(int deleteID)
         {
-            using (var db = new DataDbContext(_optionsBuilder.Options))
+            await using (var db = new DataDbContext(_optionsBuilder.Options))
             {
                 var food = db.Foods.SingleOrDefault(x => x.Id == deleteID);
                 if (food != null)
@@ -78,9 +78,9 @@ namespace MyDataManagerDataOperations
             }
         }
 
-        public void AddFood(Food food)
+        public async Task AddFood(Food food)
         {
-            using (var db = new DataDbContext(_optionsBuilder.Options))
+            await using (var db = new DataDbContext(_optionsBuilder.Options))
             {
                 db.Foods.Add(food);
                 db.SaveChanges();

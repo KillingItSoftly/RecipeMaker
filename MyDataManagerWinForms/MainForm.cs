@@ -91,7 +91,7 @@ namespace MyDataManagerWinForms
                         //var dataOperation = new DataOperations();
                         //Foods = dataOperation.GetFoods();
                         var deleteOperation = new DataOperations();
-                        deleteOperation.DeleteFood(deleteID);
+                        Task.Run(() => deleteOperation.DeleteFood(deleteID));
                         MessageBox.Show($"You deleted {foodName}, why would you do this?", "Do you feel good about yourself?", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         //System.Console.Beep();  
                         Refresh();

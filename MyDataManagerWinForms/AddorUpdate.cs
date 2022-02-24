@@ -58,7 +58,7 @@ namespace MyDataManagerWinForms
             _food.Name = txtfoodName.Text;
             _food.FoodGroupId = (int)addComboBox.SelectedItem;
             var addOperation = new DataOperations();
-            addOperation.AddFood(_food);
+            Task.Run(() => addOperation.AddFood(_food));
             msg = $"{_food.Name} added";
 
             if (_respondToMessageEvent != null)
@@ -91,7 +91,7 @@ namespace MyDataManagerWinForms
                 _food.Name = txtfoodName.Text;
                 _food.FoodGroupId = (int)addComboBox.SelectedItem;
                 var addOperation = new DataOperations();
-                addOperation.AddFood(_food);
+                Task.Run(() => addOperation.AddFood(_food));
                 msg = $"{_food.Name} added";
 
                 if (_respondToMessageEvent != null)

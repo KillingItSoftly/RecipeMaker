@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyRecipeManager.Web", "MyRecipeManager.Web\MyRecipeManager.Web.csproj", "{6F61897A-91C8-4B6D-9599-5BF0BF233DE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyRecipeManager.Web", "MyRecipeManager.Web\MyRecipeManager.Web.csproj", "{6F61897A-91C8-4B6D-9599-5BF0BF233DE2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{D7220B98-B013-4C32-85E8-4787BC4FE1AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDataModels", "MyDataModels\MyDataModels.csproj", "{4E9E7033-A9FA-4AFA-87C7-2B622AA8EF97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{6F61897A-91C8-4B6D-9599-5BF0BF233DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F61897A-91C8-4B6D-9599-5BF0BF233DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F61897A-91C8-4B6D-9599-5BF0BF233DE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7220B98-B013-4C32-85E8-4787BC4FE1AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7220B98-B013-4C32-85E8-4787BC4FE1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7220B98-B013-4C32-85E8-4787BC4FE1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7220B98-B013-4C32-85E8-4787BC4FE1AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9E7033-A9FA-4AFA-87C7-2B622AA8EF97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9E7033-A9FA-4AFA-87C7-2B622AA8EF97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9E7033-A9FA-4AFA-87C7-2B622AA8EF97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9E7033-A9FA-4AFA-87C7-2B622AA8EF97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

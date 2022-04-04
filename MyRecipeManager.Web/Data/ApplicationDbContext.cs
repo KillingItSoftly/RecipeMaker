@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MyDataModels;
 
 namespace MyRecipeManager.Web.Data
 {
@@ -9,5 +10,6 @@ namespace MyRecipeManager.Web.Data
             : base(options)
         {
         }
+        public DbSet<MyDataModels.Food> Food { get; set; }
     }
 }

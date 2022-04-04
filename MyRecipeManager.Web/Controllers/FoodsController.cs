@@ -49,7 +49,13 @@ namespace MyRecipeManager.Web.Controllers
         // GET: Foods/Create
         public IActionResult Create()
         {
-            ViewData["FoodGroupId"] = new SelectList(_context.Set<FoodGroup>(), "Id", "Group");
+            //ViewData["FoodGroupId"] = new SelectList(_context.Set<FoodGroup>(), "Id", "Group");
+            //var foodGroups = Enum.GetNames(typeof(FoodGroupName)).ToList();
+            //ViewData["FoodGroups"] = new SelectList(foodGroups);
+            var sl = new SelectList()
+            {
+                new SelectListItem (){Text = "Priority", Value = 1 },
+                
             return View();
         }
 
@@ -67,6 +73,8 @@ namespace MyRecipeManager.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FoodGroupId"] = new SelectList(_context.Set<FoodGroup>(), "Id", "Group", food.FoodGroupId);
+            //var foodGroups = Enum.GetNames(typeof(FoodGroupName)).ToList();
+            //ViewData["FoodGroups"] = new SelectList(foodGroups);
             return View(food);
         }
 

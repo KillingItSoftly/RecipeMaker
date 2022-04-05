@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataLibrary\DataLibrary.csproj" />
+    <ProjectReference Include="..\RecipeDataService\RecipeDataService.csproj" />
   </ItemGroup>
 
 </Project>

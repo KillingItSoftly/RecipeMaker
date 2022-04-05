@@ -3,34 +3,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataLibrary;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using DataLibrary;
 using MyDataModels;
-using MyRecipeManager.Web.Data;
 using RecipeDataService;
 
 namespace MyRecipeManager.Web.Controllers
 {
-    public class FoodsController : Controller
+    public class RecipesController : Controller
     {
         private readonly DataDbContext _context;
-        private readonly IRecipeData _recipeData; //Rick did this
+        private readonly IRecipeData _recipeData;
 
-        public FoodsController(IRecipeData recipeData)
+        public RecipesController(IRecipeData recipeData)
         {
             _recipeData = recipeData;
         }
 
-        // GET: Foods
+        // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            var foods = await _recipeData.GetFoods();
-            return View(foods);
+            var recipes = await _recipeData.GetRecipes();
+            return View(recipes);
         }
 
-        // GET: Foods/Details/5
+        // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,68 +37,60 @@ namespace MyRecipeManager.Web.Controllers
                 return NotFound();
             }
 
-            var food = await _recipeData.GetFood(id);   
-            if (food == null)
+            var recipe = await _recipeData.GetRecipe(id);
+            if (recipe == null)
             {
                 return NotFound();
             }
 
-            return View(food);
+            return View(recipe);
         }
 
-        // GET: Foods/Create
+        // GET: Recipes/Create
         public IActionResult Create()
         {
-            var foodGroups = _recipeData.GetFoodGroups().Result;
-            ViewData["FoodGroupId"] = new SelectList(foodGroups, "Id", "Group");
             return View();
         }
 
-        // POST: Foods/Create
+        // POST: Recipes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,FoodGroupId")] Food food)
+        public async Task<IActionResult> Create([Bind("Id,Dish,Instructions")] Recipe recipe)
         {
-            var foodGroups = _recipeData.GetFoodGroups().Result;
             if (ModelState.IsValid)
             {
-                await _recipeData.Add(food);
-                
+                await _recipeData.Add(recipe);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FoodGroupId"] = new SelectList(foodGroups, "Id", "Group", food.FoodGroupId);
-            return View(food);
+            return View(recipe);
         }
 
-        // GET: Foods/Edit/5
+        // GET: Recipes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var foodGroups = _recipeData.GetFoodGroups().Result;
             if (id == null)
             {
                 return NotFound();
             }
 
-            var food = await _recipeData.Find((int)id);
-            if (food == null)
+            var recipe = await _recipeData.FindRecipe((int)id);
+            if (recipe == null)
             {
                 return NotFound();
             }
-            ViewData["FoodGroupId"] = new SelectList(foodGroups, "Id", "Group", food.FoodGroupId);
-            return View(food);
+            return View(recipe);
         }
 
-        // POST: Foods/Edit/5
+        // POST: Recipes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId")] Food food)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Dish,Instructions")] Recipe recipe)
         {
-            var foodGroups = _recipeData.GetFoodGroups().Result;
-            if (id != food.Id)
+            if (id != recipe.Id)
             {
                 return NotFound();
             }
@@ -108,11 +99,11 @@ namespace MyRecipeManager.Web.Controllers
             {
                 try
                 {
-                    await _recipeData.Update(food);
+                    await _recipeData.Update(recipe);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FoodExists(food.Id))
+                    if (!RecipeExists(recipe.Id))
                     {
                         return NotFound();
                     }
@@ -123,11 +114,10 @@ namespace MyRecipeManager.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FoodGroupId"] = new SelectList(foodGroups, "Id", "Group", food.FoodGroupId);
-            return View(food);
+            return View(recipe);
         }
 
-        // GET: Foods/Delete/5
+        // GET: Recipes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,29 +125,28 @@ namespace MyRecipeManager.Web.Controllers
                 return NotFound();
             }
 
-            
-            var food = await _recipeData.GetFood(id);
-            if (food == null)
+            var recipe = await _recipeData.GetRecipe(id);
+            if (recipe == null)
             {
                 return NotFound();
             }
 
-            return View(food);
+            return View(recipe);
         }
 
-        // POST: Foods/Delete/5
+        // POST: Recipes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _recipeData.Delete(id);
+            await _recipeData.DeleteRecipe(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FoodExists(int id)
+        private bool RecipeExists(int id)
         {
-            var food = _recipeData.GetFood(id);
-            return food != null;
+            var recipe = _recipeData.GetRecipe(id);
+            return recipe != null;
         }
     }
 }

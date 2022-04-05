@@ -35,6 +35,8 @@ namespace RecipeDataService
         {
             return await _context.ReceipeItems.ToListAsync();
         }
+
+        //Food Controller
         public async Task<Food> GetFood(int? id)
         {
             return await _context.Foods.Include(f => f.FoodGroup).AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
@@ -75,6 +77,7 @@ namespace RecipeDataService
             return food;
         }
 
+        //Food Group Controller
         public async Task<FoodGroup> GetFoodGroup(int? id)
         {
            return await _context.FoodGroups .FirstOrDefaultAsync(m => m.Id == id);
@@ -111,6 +114,47 @@ namespace RecipeDataService
             var foodGroup = await _context.FoodGroups.FindAsync(id);
             _context.FoodGroups.Remove(foodGroup);
             await _context.SaveChangesAsync();
+        }
+
+
+        //Recipe Controller 
+        public async Task<Recipe> GetRecipe(int? id)
+        {
+            return await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task Add(Recipe recipe)
+        {
+            await _context.AddAsync(recipe);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteRecipe(int id)
+        {
+            var recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+            _context.Recipes.Remove(recipe);
+            await _context.SaveChangesAsync();
+        }
+
+        public Task Delete(Recipe recipe)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Update(Recipe recipe)
+        {
+            var newRecipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == recipe.Id);
+            newRecipe.Id = recipe.Id;
+            newRecipe.Dish = recipe.Dish;
+            newRecipe.Instructions = recipe.Instructions;
+            await Task.Run(() => _context.Update(newRecipe));
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Recipe> FindRecipe(int id)
+        {
+            var recipe = await _context.Recipes.FindAsync(id);
+            return recipe;
         }
     }
 }

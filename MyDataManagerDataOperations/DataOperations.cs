@@ -41,7 +41,8 @@ namespace MyDataManagerDataOperations
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                return await db.FoodGroups.ToListAsync();
+                var service = new RecipeData(db);
+                return await service.GetFoodGroups();
             }
         }
 
@@ -49,7 +50,8 @@ namespace MyDataManagerDataOperations
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                return await db.Recipes.OrderBy(x => x.Dish).ToListAsync();
+                var service = new RecipeData(db);
+                return await service.GetRecipes();
             }
         }
 
@@ -57,7 +59,8 @@ namespace MyDataManagerDataOperations
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                return await db.StockItems.ToListAsync();
+                var service = new RecipeData(db);
+                return await service.GetStockItems();
             }
         }
 
@@ -65,45 +68,46 @@ namespace MyDataManagerDataOperations
         {
             using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                return await db.ReceipeItems.ToListAsync();
+                var service = new RecipeData(db);
+                return await service.GetRecipeItems();
             }
         }
 
-        public async Task DeleteFood(int deleteID)
-        {
-            await using (var db = new DataDbContext(_optionsBuilder.Options))
-            {
-                var food = db.Foods.SingleOrDefault(x => x.Id == deleteID);
-                if (food != null)
-                {
-                    db.Foods.Remove(food);
-                    db.SaveChanges();
-                }
-            }
-        }
+        //public async Task DeleteFood(int deleteID)
+        //{
+        //    await using (var db = new DataDbContext(_optionsBuilder.Options))
+        //    {
+        //        var food = db.Foods.SingleOrDefault(x => x.Id == deleteID);
+        //        if (food != null)
+        //        {
+        //            db.Foods.Remove(food);
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //}
 
-        public async Task AddFood(Food food)
-        {
-            await using (var db = new DataDbContext(_optionsBuilder.Options))
-            {
-                db.Foods.Add(food);
-                db.SaveChanges();
-            }
-        }
+        //public async Task AddFood(Food food)
+        //{
+        //    await using (var db = new DataDbContext(_optionsBuilder.Options))
+        //    {
+        //        db.Foods.Add(food);
+        //        db.SaveChanges();
+        //    }
+        //}
 
-        public void LoadData()
-        {
-            var appId = _configuration["edamam:app_id"].ToString();
-            var appKey = _configuration["edamam:app_key"].ToString();
-            var di = new DataImporter();
-            var a = "abcdefghijklmnopqrstuvwxyz";
+        //public void LoadData()
+        //{
+        //    var appId = _configuration["edamam:app_id"].ToString();
+        //    var appKey = _configuration["edamam:app_key"].ToString();
+        //    var di = new DataImporter();
+        //    var a = "abcdefghijklmnopqrstuvwxyz";
 
-            for (int i = 0; i < a.Length; i++)
-            {
-                var nextChar = a.Substring(i, 1);
-                Task.Run(async () => await di.GetData(appKey, appId, nextChar));
-            }
-        }
+        //    for (int i = 0; i < a.Length; i++)
+        //    {
+        //        var nextChar = a.Substring(i, 1);
+        //        Task.Run(async () => await di.GetData(appKey, appId, nextChar));
+        //    }
+        //}
 
         //using (var db = new DataDbContext(_optionsBuilder.Options))
         //{

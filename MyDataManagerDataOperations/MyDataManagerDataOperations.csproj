@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DataLibrary\DataLibrary.csproj" />
     <ProjectReference Include="..\MyDataModels\MyDataModels.csproj" />
+    <ProjectReference Include="..\RecipeDataService\RecipeDataService.csproj" />
   </ItemGroup>
 
 </Project>

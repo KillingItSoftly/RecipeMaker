@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RecipeDataService;
 
 namespace MyDataManagerDataOperations
 {
@@ -27,41 +28,44 @@ namespace MyDataManagerDataOperations
 
         public async Task<List<Food>> GetFoods()
         {
-            await using (var db = new DataDbContext(_optionsBuilder.Options))
+            using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                return db.Foods.OrderBy(x => x.Name).ToList();
+               // return await db.Foods.OrderBy(x => x.Name).ToListAsync();
+
+                var service = new RecipeData(db);
+                return await service.GetFoods();
             }
         }
 
         public async Task<List<FoodGroup>> GetFoodGroups()
         {
-            await using (var db = new DataDbContext(_optionsBuilder.Options))
+            using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                return db.FoodGroups.ToList();
+                return await db.FoodGroups.ToListAsync();
             }
         }
 
         public async Task<List<Recipe>> GetRecipes()
         {
-            await using (var db = new DataDbContext(_optionsBuilder.Options))
+            using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                return db.Recipes.OrderBy(x => x.Dish).ToList();
+                return await db.Recipes.OrderBy(x => x.Dish).ToListAsync();
             }
         }
 
         public async Task<List<StockItem>> GetStockItems()
         {
-            await using (var db = new DataDbContext(_optionsBuilder.Options))
+            using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                return db.StockItems.ToList();
+                return await db.StockItems.ToListAsync();
             }
         }
 
         public async Task<List<RecipeItem>> GetRecipeItems()
         {
-            await using (var db = new DataDbContext(_optionsBuilder.Options))
+            using (var db = new DataDbContext(_optionsBuilder.Options))
             {
-                return db.ReceipeItems.ToList();
+                return await db.ReceipeItems.ToListAsync();
             }
         }
 

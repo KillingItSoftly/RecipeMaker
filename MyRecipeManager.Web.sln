@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDataModels", "MyDataModel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDataManagerDataOperations", "MyDataManagerDataOperations\MyDataManagerDataOperations.csproj", "{1F8CD0D9-50BF-46A0-A1E8-99997677EFBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeDataService", "RecipeDataService\RecipeDataService.csproj", "{50B6B1CC-9C2E-4E52-B037-CF8F782C5EA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1F8CD0D9-50BF-46A0-A1E8-99997677EFBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F8CD0D9-50BF-46A0-A1E8-99997677EFBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F8CD0D9-50BF-46A0-A1E8-99997677EFBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50B6B1CC-9C2E-4E52-B037-CF8F782C5EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50B6B1CC-9C2E-4E52-B037-CF8F782C5EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50B6B1CC-9C2E-4E52-B037-CF8F782C5EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50B6B1CC-9C2E-4E52-B037-CF8F782C5EA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

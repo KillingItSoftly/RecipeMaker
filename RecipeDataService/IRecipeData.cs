@@ -21,6 +21,13 @@ namespace RecipeDataService
         Task Delete(Food food);
         Task Update (Food food);
         Task<Food> Find(int id);
-        
+        Task<FoodGroup> GetFoodGroup(int? id);
+
+        Task Add(FoodGroup foodGroup);
+
+        Task DeleteFoodGroup(int id);   
+        Task Delete(FoodGroup food);
+        Task Update(FoodGroup food);
+        Task<FoodGroup> FindFoodGroup(int id);
     }
 }

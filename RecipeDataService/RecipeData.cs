@@ -74,5 +74,43 @@ namespace RecipeDataService
             var food = await _context.Foods.FindAsync(id);
             return food;
         }
+
+        public async Task<FoodGroup> GetFoodGroup(int? id)
+        {
+           return await _context.FoodGroups .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task Add(FoodGroup foodGroup)
+        {
+            await _context.AddAsync(foodGroup);
+            await _context.SaveChangesAsync();
+        }
+
+        public Task Delete(FoodGroup food)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Update(FoodGroup foodgroup)
+        {
+            var actualFoodGroup = await _context.FoodGroups.FirstOrDefaultAsync(m => m.Id == foodgroup.Id);
+            actualFoodGroup.Id = foodgroup.Id;
+            actualFoodGroup.Group = foodgroup.Group;
+            await Task.Run(() => _context.Update(actualFoodGroup)); 
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<FoodGroup> FindFoodGroup(int id)
+        {
+            var foodGroup = await _context.FoodGroups.FindAsync(id);
+            return foodGroup;
+        }
+
+        public async Task DeleteFoodGroup(int id)
+        {
+            var foodGroup = await _context.FoodGroups.FindAsync(id);
+            _context.FoodGroups.Remove(foodGroup);
+            await _context.SaveChangesAsync();
+        }
     }
 }

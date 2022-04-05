@@ -17,16 +17,16 @@ namespace MyRecipeManager.Web.Controllers
         private readonly DataDbContext _context;
         private readonly IRecipeData _recipeData;
 
-        public FoodGroupsController(DataDbContext context, IRecipeData recipeData)
+        public FoodGroupsController(IRecipeData recipeData)
         {
-            _context = context;
             _recipeData = recipeData;
         }
 
         // GET: FoodGroups
         public async Task<IActionResult> Index()
         {
-            return View(await _context.FoodGroups.ToListAsync());
+            var foodGroups = await _recipeData.GetFoodGroups();
+            return View(foodGroups);
         }
 
         // GET: FoodGroups/Details/5
@@ -37,8 +37,7 @@ namespace MyRecipeManager.Web.Controllers
                 return NotFound();
             }
 
-            var foodGroup = await _context.FoodGroups
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var foodGroup = await _recipeData.GetFoodGroup(id);
             if (foodGroup == null)
             {
                 return NotFound();
@@ -62,8 +61,7 @@ namespace MyRecipeManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(foodGroup);
-                await _context.SaveChangesAsync();
+                await _recipeData.Add(foodGroup);
                 return RedirectToAction(nameof(Index));
             }
             return View(foodGroup);
@@ -77,7 +75,7 @@ namespace MyRecipeManager.Web.Controllers
                 return NotFound();
             }
 
-            var foodGroup = await _context.FoodGroups.FindAsync(id);
+            var foodGroup = await _recipeData.FindFoodGroup((int)id);
             if (foodGroup == null)
             {
                 return NotFound();
@@ -101,8 +99,7 @@ namespace MyRecipeManager.Web.Controllers
             {
                 try
                 {
-                    _context.Update(foodGroup);
-                    await _context.SaveChangesAsync();
+                    await _recipeData.Update(foodGroup);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -128,8 +125,7 @@ namespace MyRecipeManager.Web.Controllers
                 return NotFound();
             }
 
-            var foodGroup = await _context.FoodGroups
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var foodGroup = await _recipeData.GetFoodGroup(id);
             if (foodGroup == null)
             {
                 return NotFound();
@@ -143,15 +139,14 @@ namespace MyRecipeManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var foodGroup = await _context.FoodGroups.FindAsync(id);
-            _context.FoodGroups.Remove(foodGroup);
-            await _context.SaveChangesAsync();
+            await _recipeData.DeleteFoodGroup(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool FoodGroupExists(int id)
         {
-            return _context.FoodGroups.Any(e => e.Id == id);
+            var foodGroup = _recipeData.GetFoodGroup(id);
+            return foodGroup != null;
         }
     }
 }

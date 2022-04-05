@@ -9,23 +9,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyDataModels;
 using MyRecipeManager.Web.Data;
+using RecipeDataService;
 
 namespace MyRecipeManager.Web.Controllers
 {
     public class FoodsController : Controller
     {
         private readonly DataDbContext _context;
+        private readonly IRecipeData _recipeData;
 
-        public FoodsController(DataDbContext context)
+        public FoodsController(DataDbContext context, IRecipeData recipeData)
         {
             _context = context;
+            _recipeData = recipeData;
         }
 
         // GET: Foods
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Foods.Include(f => f.FoodGroup);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _recipeData.GetFoods());
         }
 
         // GET: Foods/Details/5

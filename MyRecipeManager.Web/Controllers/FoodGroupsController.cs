@@ -8,16 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DataLibrary;
 using MyDataModels;
+using RecipeDataService;
 
 namespace MyRecipeManager.Web.Controllers
 {
     public class FoodGroupsController : Controller
     {
         private readonly DataDbContext _context;
+        private readonly IRecipeData _recipeData;
 
-        public FoodGroupsController(DataDbContext context)
+        public FoodGroupsController(DataDbContext context, IRecipeData recipeData)
         {
             _context = context;
+            _recipeData = recipeData;
         }
 
         // GET: FoodGroups

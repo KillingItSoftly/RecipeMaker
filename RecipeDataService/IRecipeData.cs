@@ -10,5 +10,7 @@ namespace RecipeDataService
     public interface IRecipeData
     {
         Task<List<Food>> GetFoods();
+
+        Task<List<FoodGroup>> GetFoodGroups();
     }
 }

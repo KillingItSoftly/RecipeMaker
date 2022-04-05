@@ -15,7 +15,11 @@ namespace RecipeDataService
         public async Task<List<Food>> GetFoods()
         {
              return await _context.Foods.OrderBy(x => x.Name).AsNoTracking().ToListAsync();
-            
+        }
+
+        public async Task<List<FoodGroup>> GetFoodGroups()
+        {
+            return await _context.FoodGroups.ToListAsync();
         }
     }
 }

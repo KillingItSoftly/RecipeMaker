@@ -12,5 +12,15 @@ namespace RecipeDataService
         Task<List<Food>> GetFoods();
 
         Task<List<FoodGroup>> GetFoodGroups();
+
+        Task<Food>GetFood(int? id);
+
+        Task Add(Food food);
+
+        Task Delete(int id);
+        Task Delete(Food food);
+        Task Update (Food food);
+        Task<Food> Find(int id);
+        
     }
 }

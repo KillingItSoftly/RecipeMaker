@@ -26,9 +26,9 @@ namespace MyDataModels
 
         public virtual List<Food> Foods { get; set; } = new List<Food>();
 
-        public override string ToString()
-        {
-            return Group;
-        }
+        //public override string ToString()
+        //{
+        //    return Group;
+        //}
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataLibrary;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,9 @@ namespace MyRecipeManager.Web.Controllers
 {
     public class FoodsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly DataDbContext _context;
 
-        public FoodsController(ApplicationDbContext context)
+        public FoodsController(DataDbContext context)
         {
             _context = context;
         }
@@ -23,7 +24,7 @@ namespace MyRecipeManager.Web.Controllers
         // GET: Foods
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Food.Include(f => f.FoodGroup);
+            var applicationDbContext = _context.Foods.Include(f => f.FoodGroup);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +36,7 @@ namespace MyRecipeManager.Web.Controllers
                 return NotFound();
             }
 
-            var food = await _context.Food
+            var food = await _context.Foods
                 .Include(f => f.FoodGroup)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (food == null)
@@ -49,13 +50,7 @@ namespace MyRecipeManager.Web.Controllers
         // GET: Foods/Create
         public IActionResult Create()
         {
-            //ViewData["FoodGroupId"] = new SelectList(_context.Set<FoodGroup>(), "Id", "Group");
-            //var foodGroups = Enum.GetNames(typeof(FoodGroupName)).ToList();
-            //ViewData["FoodGroups"] = new SelectList(foodGroups);
-            var sl = new SelectList()
-            {
-                new SelectListItem (){Text = "Priority", Value = 1 },
-                
+            ViewData["FoodGroupId"] = new SelectList(_context.Set<FoodGroup>(), "Id", "Group");
             return View();
         }
 
@@ -73,8 +68,6 @@ namespace MyRecipeManager.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FoodGroupId"] = new SelectList(_context.Set<FoodGroup>(), "Id", "Group", food.FoodGroupId);
-            //var foodGroups = Enum.GetNames(typeof(FoodGroupName)).ToList();
-            //ViewData["FoodGroups"] = new SelectList(foodGroups);
             return View(food);
         }
 
@@ -86,7 +79,7 @@ namespace MyRecipeManager.Web.Controllers
                 return NotFound();
             }
 
-            var food = await _context.Food.FindAsync(id);
+            var food = await _context.Foods.FindAsync(id);
             if (food == null)
             {
                 return NotFound();
@@ -139,7 +132,7 @@ namespace MyRecipeManager.Web.Controllers
                 return NotFound();
             }
 
-            var food = await _context.Food
+            var food = await _context.Foods
                 .Include(f => f.FoodGroup)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (food == null)
@@ -155,15 +148,15 @@ namespace MyRecipeManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var food = await _context.Food.FindAsync(id);
-            _context.Food.Remove(food);
+            var food = await _context.Foods.FindAsync(id);
+            _context.Foods.Remove(food);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool FoodExists(int id)
         {
-            return _context.Food.Any(e => e.Id == id);
+            return _context.Foods.Any(e => e.Id == id);
         }
     }
 }

@@ -10,6 +10,5 @@ namespace MyRecipeManager.Web.Data
             : base(options)
         {
         }
-        public DbSet<MyDataModels.Food> Food { get; set; }
     }
 }

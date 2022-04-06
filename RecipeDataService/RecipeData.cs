@@ -68,7 +68,6 @@ namespace RecipeDataService
             actualFood.FoodGroupId = food.FoodGroupId;
             await Task.Run(() => _context.Update(actualFood));
             await _context.SaveChangesAsync();
-
         }
 
         public async Task<Food> Find(int id)
@@ -80,7 +79,7 @@ namespace RecipeDataService
         //Food Group Controller
         public async Task<FoodGroup> GetFoodGroup(int? id)
         {
-           return await _context.FoodGroups .FirstOrDefaultAsync(m => m.Id == id);
+           return await _context.FoodGroups.FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task Add(FoodGroup foodGroup)

@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using MyDataModels;
 using MyRecipeManager.Web.Data;
 using RecipeDataService;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MyRecipeManager.Web.Controllers
 {
@@ -20,16 +21,25 @@ namespace MyRecipeManager.Web.Controllers
         
         private readonly IRecipeData _recipeData; //Rick did this
         private readonly IUserRoleService _userRoleService;
+        private readonly IMemoryCache _memoryCache;
 
         public FoodsController(IRecipeData recipeData)
         {
             _recipeData = recipeData;
+            _memoryCache = memorycache; 
         }
 
         // GET: Foods
         public async Task<IActionResult> Index()
         {
-            var foods = await _recipeData.GetFoods();
+            ViewData["Hello"] = "Some String";
+            var foodData = new List<Food>();
+            if (! _memoryCache.TryGetValue("AllTheFood", out foodData))
+            {
+                foodData = await _recipeData.GetAllAsync() as List<Food>;
+                _memomryCache.Set("AllTheFood", statesData, TimeSpan.FromDays(1));
+            }
+            
             return View(foods);
         }
 

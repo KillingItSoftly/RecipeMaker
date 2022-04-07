@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using MyDataModels;
 using MyRecipeManager.Web.Data;
 using RecipeDataService;
+using Microsoft.Extensions.Caching.Memory;
+using MyRecipeManager.Web.Models;
 
 namespace MyRecipeManager.Web.Controllers
 {
@@ -20,17 +22,26 @@ namespace MyRecipeManager.Web.Controllers
         
         private readonly IRecipeData _recipeData; //Rick did this
         private readonly IUserRoleService _userRoleService;
+        private readonly IMemoryCache _memoryCache;
 
-        public FoodsController(IRecipeData recipeData)
+        public FoodsController(IRecipeData recipeData, IMemoryCache memoryCache)
         {
             _recipeData = recipeData;
+            _memoryCache = memoryCache; 
         }
 
         // GET: Foods
         public async Task<IActionResult> Index()
         {
-            var foods = await _recipeData.GetFoods();
-            return View(foods);
+            
+            var foodData = new List<Food>();
+            if (! _memoryCache.TryGetValue(FoodCacheManager.FoodCacheName, out foodData))
+            {
+                foodData = await _recipeData.GetFoods() as List<Food>;
+                _memoryCache.Set(FoodCacheManager.FoodCacheName, foodData, TimeSpan.FromDays(1));
+            }
+            
+            return View(foodData);
         }
 
         // GET: Foods/Details/5
@@ -71,7 +82,7 @@ namespace MyRecipeManager.Web.Controllers
             if (ModelState.IsValid)
             {
                 await _recipeData.Add(food);
-                
+                _memoryCache.Remove(FoodCacheManager.FoodCacheName);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FoodGroupId"] = new SelectList(foodGroups, "Id", "Group", food.FoodGroupId);
@@ -85,6 +96,7 @@ namespace MyRecipeManager.Web.Controllers
             var foodGroups = _recipeData.GetFoodGroups().Result;
             if (id == null)
             {
+                
                 return NotFound();
             }
 
@@ -115,7 +127,9 @@ namespace MyRecipeManager.Web.Controllers
             {
                 try
                 {
+
                     await _recipeData.Update(food);
+                    _memoryCache.Remove(FoodCacheManager.FoodCacheName);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -160,6 +174,7 @@ namespace MyRecipeManager.Web.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _recipeData.Delete(id);
+            _memoryCache.Remove(FoodCacheManager.FoodCacheName);
             return RedirectToAction(nameof(Index));
         }
 

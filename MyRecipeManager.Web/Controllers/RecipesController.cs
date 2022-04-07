@@ -14,7 +14,7 @@ namespace MyRecipeManager.Web.Controllers
 {
     public class RecipesController : Controller
     {
-        private readonly DataDbContext _context;
+        
         private readonly IRecipeData _recipeData;
 
         public RecipesController(IRecipeData recipeData)

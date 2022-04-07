@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLibrary;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ using RecipeDataService;
 
 namespace MyRecipeManager.Web.Controllers
 {
+    [Authorize]
     public class FoodsController : Controller
     {
-        private readonly DataDbContext _context;
+        
         private readonly IRecipeData _recipeData; //Rick did this
+        private readonly IUserRoleService _userRoleService;
 
         public FoodsController(IRecipeData recipeData)
         {
@@ -48,6 +51,7 @@ namespace MyRecipeManager.Web.Controllers
         }
 
         // GET: Foods/Create
+        [Authorize(Roles = UserRoleService.ADMIN_ROLE_NAME)]
         public IActionResult Create()
         {
             var foodGroups = _recipeData.GetFoodGroups().Result;
@@ -60,6 +64,7 @@ namespace MyRecipeManager.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = UserRoleService.ADMIN_ROLE_NAME)]
         public async Task<IActionResult> Create([Bind("Id,Name,FoodGroupId")] Food food)
         {
             var foodGroups = _recipeData.GetFoodGroups().Result;
@@ -74,6 +79,7 @@ namespace MyRecipeManager.Web.Controllers
         }
 
         // GET: Foods/Edit/5
+        [Authorize(Roles = UserRoleService.ADMIN_ROLE_NAME)]
         public async Task<IActionResult> Edit(int? id)
         {
             var foodGroups = _recipeData.GetFoodGroups().Result;
@@ -96,6 +102,7 @@ namespace MyRecipeManager.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = UserRoleService.ADMIN_ROLE_NAME)]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId")] Food food)
         {
             var foodGroups = _recipeData.GetFoodGroups().Result;
@@ -128,6 +135,7 @@ namespace MyRecipeManager.Web.Controllers
         }
 
         // GET: Foods/Delete/5
+        [Authorize(Roles = UserRoleService.ADMIN_ROLE_NAME)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,6 +156,7 @@ namespace MyRecipeManager.Web.Controllers
         // POST: Foods/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = UserRoleService.ADMIN_ROLE_NAME)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _recipeData.Delete(id);

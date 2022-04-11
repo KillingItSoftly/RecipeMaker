@@ -4,7 +4,9 @@ on:
   push:
     branches: [ main ]
 
-
+env:
+  AZURE_WEBAPP_NAME: FridgetoTable
+  
 jobs:
   build:
 
@@ -28,3 +30,10 @@ jobs:
     - name: .net publish
       run: dotnet publish -c Release -o myapp
       working-directory: ./MyRecipeManager.Web
+    - name: deploy to azure app service
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+        package: './myapp'

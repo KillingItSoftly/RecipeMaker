@@ -18,9 +18,13 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ./RecipeMaker
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ./RecipeMaker
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: ./RecipeMaker
     - name: .net publish
       run: dotnet publish -c Release -o .
+      working-directory: ./RecipeMaker
